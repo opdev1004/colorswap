@@ -148,12 +148,15 @@ namespace Color_Swap
             progressBar1.Maximum = total;
             Color oldCol = ColorTranslator.FromHtml("#" + textBox1.Text);
             Color newCol = ColorTranslator.FromHtml("#" + textBox2.Text);
-            double minR = FixRGBNumber(oldCol.R - range);
-            double minG = FixRGBNumber(oldCol.G - range);
-            double minB = FixRGBNumber(oldCol.B - range);
-            double maxR = FixRGBNumber(oldCol.R + range);
-            double maxG = FixRGBNumber(oldCol.G + range);
-            double maxB = FixRGBNumber(oldCol.B + range);
+            Tuple<double, double> r = GetColorRange(oldCol.R, range);
+            Tuple<double, double> g = GetColorRange(oldCol.G, range);
+            Tuple<double, double> b = GetColorRange(oldCol.B, range);
+            double maxR = r.Item1;
+            double minR = r.Item2;
+            double maxG = g.Item1;
+            double minG = g.Item2;
+            double maxB = b.Item1;
+            double minB = b.Item2;
 
             String path = textBox3.Text;
             double alpha = 255;
@@ -178,20 +181,25 @@ namespace Color_Swap
             label4.Text = total.ToString() + "/" + total.ToString() + ", all done!";
         }
 
-        private double FixRGBNumber(double x)
+        private Tuple<double, double> GetColorRange(double value, double range)
         {
-            if (x > 255)
+            double result1 = value + range;
+            double result2 = value - range;
+            double leftOVer1 = 0;
+            double leftOVer2 = 0;
+            if (result1 > 255)
             {
-                return 255;
+                leftOVer1 = result1 - 255;
+                result1 = 255;
+                result2 = result2 + leftOVer1;
             }
-            else if (x < 0)
+            if (result2 < 0)
             {
-                return 0;
+                leftOVer2 = 0 - result2;
+                result2 = 0;
+                result1 = result1 + leftOVer2;
             }
-            else
-            {
-                return x;
-            }
+            return Tuple.Create<double, double>(result1, result2);
         }
 
         private void button7_Click_1(object sender, EventArgs e)
