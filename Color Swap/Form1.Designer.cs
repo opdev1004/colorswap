@@ -147,7 +147,7 @@
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(117, 37);
             this.textBox2.TabIndex = 18;
-            this.textBox2.Text = "FFFFFF";
+            this.textBox2.Text = "000000";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // button2
