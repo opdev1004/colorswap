@@ -170,8 +170,14 @@ namespace Color_Swap
                 label4.Text = count.ToString() + "/" + total.ToString(); 
                 String fileName = Path.GetFileNameWithoutExtension(value);
                 Image<Rgba, byte> image = CvInvoke.Imread(value).ToImage<Rgba, byte>();
-                Image<Gray, byte> tmp = image.InRange(new Rgba(minR, minG, minB, 255), new Rgba(maxR, maxG, maxB, 255));
+                // Get all the transparent part of image and set them same color
+                Image<Gray, byte> transparentImage = image.InRange(new Rgba(0, 0, 0, 0), new Rgba(255, 255, 255, 0));
                 Mat mat = image.Mat;
+                mat.SetTo(new MCvScalar(newCol.R, newCol.G, newCol.B, alpha), transparentImage);
+                mat.CopyTo(image);
+                // Apply color replace and transparent color
+                Image<Gray, byte> tmp = image.InRange(new Rgba(minR, minG, minB, 255), new Rgba(maxR, maxG, maxB, 255));
+                mat = image.Mat;
                 mat.SetTo(new MCvScalar(newCol.R, newCol.G, newCol.B, alpha), tmp);
                 mat.CopyTo(image);
                 image.Save(path + "\\" + fileName + ".png");
