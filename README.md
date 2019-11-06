@@ -10,3 +10,5 @@ EMGU CV is used for the speed of image processing.
 
 ## LICENSE
 EMGU CV and other libraries have their own LICENSE. For others read LICENSE file.
+
+For short note about commercial use of this progam, all the images are yours. This is a free program.
