@@ -8,7 +8,7 @@ Color Swap only export image with png extensions. It is originally built for mod
 
 EMGU CV is used for the speed of image processing.
 
-# Bug report
+## Bug report
 Please create an issue with label in this github repository.
 
 
