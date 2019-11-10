@@ -146,6 +146,7 @@ namespace Color_Swap
             int count = 1;
             double range = Convert.ToDouble(textBox4.Text);
             progressBar1.Maximum = total;
+            progressBar1.Value = progressBar1.Minimum;
             Color oldCol = ColorTranslator.FromHtml("#" + textBox1.Text);
             Color newCol = ColorTranslator.FromHtml("#" + textBox2.Text);
             Tuple<double, double> r = GetColorRange(oldCol.R, range);
@@ -158,27 +159,39 @@ namespace Color_Swap
             double maxB = b.Item1;
             double minB = b.Item2;
 
+            double red = newCol.R;
+            double green = newCol.G;
+            double blue = newCol.B;
+
             String path = textBox3.Text;
             double alpha = 255;
             Boolean transparency = checkBox1.Checked;
             if (transparency)
             {
                 alpha = 0;
+                red = 0;
+                green = 0;
+                blue = 0;
             }
             foreach (String value in listBox1.Items)
             {
                 label4.Text = count.ToString() + "/" + total.ToString(); 
                 String fileName = Path.GetFileNameWithoutExtension(value);
-                Image<Rgba, byte> image = CvInvoke.Imread(value).ToImage<Rgba, byte>();
-                Image<Gray, byte> tmp = image.InRange(new Rgba(minR, minG, minB, 255), new Rgba(maxR, maxG, maxB, 255));
+                Bitmap originalBitmap = new Bitmap(value);
+                Image<Rgba, byte> image = new Image<Rgba, byte>(originalBitmap);
+                MessageBox.Show(" " + minR + " " + minG + " " + minB + " " + maxR + " " + maxG + " " + maxB);
+                Image<Gray, byte> tmp = image.InRange(new Rgba(minR, minG, minB, alpha), new Rgba(maxR, maxG, maxB, 255));
                 Mat mat = image.Mat;
-                mat.SetTo(new MCvScalar(newCol.R, newCol.G, newCol.B, alpha), tmp);
+                mat.SetTo(new MCvScalar(red, green, blue, alpha), tmp);
                 mat.CopyTo(image);
-                image.Save(path + "\\" + fileName + ".png");
+                Bitmap bitmapImage = image.Bitmap;
+                bitmapImage.MakeTransparent();
+                bitmapImage.Save(path + "\\" + fileName + ".png", ImageFormat.Png);
                 progressBar1.Increment(1);
                 count++;
             }
             label4.Text = total.ToString() + "/" + total.ToString() + ", all done!";
+            count = 0;
         }
 
         private Tuple<double, double> GetColorRange(double value, double range)
