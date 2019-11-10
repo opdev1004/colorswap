@@ -56,9 +56,9 @@ namespace Color_Swap
         private void button2_Click(object sender, EventArgs e)
         {
             // Set Hex Color
-            colorDialog1.AllowFullOpen = true;
-            colorDialog1.ShowDialog();
-            Color col = colorDialog1.Color;
+            colorDialog2.AllowFullOpen = true;
+            colorDialog2.ShowDialog();
+            Color col = colorDialog2.Color;
             String hex = col.R.ToString("X2") + col.G.ToString("X2") + col.B.ToString("X2");
             textBox2.Text = hex;
         }
@@ -179,7 +179,6 @@ namespace Color_Swap
                 String fileName = Path.GetFileNameWithoutExtension(value);
                 Bitmap originalBitmap = new Bitmap(value);
                 Image<Rgba, byte> image = new Image<Rgba, byte>(originalBitmap);
-                MessageBox.Show(" " + minR + " " + minG + " " + minB + " " + maxR + " " + maxG + " " + maxB);
                 Image<Gray, byte> tmp = image.InRange(new Rgba(minR, minG, minB, alpha), new Rgba(maxR, maxG, maxB, 255));
                 Mat mat = image.Mat;
                 mat.SetTo(new MCvScalar(red, green, blue, alpha), tmp);

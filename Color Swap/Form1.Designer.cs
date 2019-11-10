@@ -53,6 +53,7 @@
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.SuspendLayout();
             // 
             // label1
@@ -376,6 +377,7 @@
         private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ColorDialog colorDialog2;
     }
 }
 
