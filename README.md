@@ -1,6 +1,6 @@
 # Color Swap
 ## Notice
-This repository won't be maintained.
+This repository is not going to be maintained. However you are welcome to create a pull request and improve the project.
 
 ## Desc
 ![alt App Image](/img/color_swap.PNG)
