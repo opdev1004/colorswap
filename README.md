@@ -1,5 +1,8 @@
 # Color Swap
+## Notice
+This repository won't be maintained.
 
+## Desc
 ![alt App Image](/img/color_swap.PNG)
 
 This is windows desktop application that swaps color to another color or transparent pixel.
